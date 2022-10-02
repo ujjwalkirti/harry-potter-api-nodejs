@@ -8,16 +8,15 @@ const client = new MongoClient(connectionString, {
 let dbConnection;
 
 module.exports = {
-  connectToServer: function (callback) {
+  connectToServer: function () {
     client.connect(function (err, db) {
       if (err || !db) {
-        return callback(err);
+        return console.log(err.errmsg);
       }
 
-      dbConnection = db.db("sample_airbnb");
-      console.log("Successfully connected to MongoDB.");
+      dbConnection = db.db("cluster0");
 
-      return callback();
+      return console.log("Successfully connected to MongoDB.");
     });
   },
 
