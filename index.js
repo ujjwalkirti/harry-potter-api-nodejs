@@ -17,9 +17,19 @@ app.use("/houses", housesRouter);
 
 //render the homepage
 app.get("/", (req, res) => {
-  const routes = getTop50Records("routes");
-  console.log(routes);
-  res.render("home.ejs", { routes });
+  const dbConnect = db.getDb();
+  dbConnect
+    .collection("routes")
+    .find({})
+    .limit(50)
+    .toArray(function (err, result) {
+      if (err) {
+        res.status(400).send("Error fetching listings!");
+      } else {
+        // console.log(result);
+        res.render("home.ejs", { result });
+      }
+    });
 });
 
 //render the page to add routes
@@ -29,7 +39,7 @@ app.get("/addRoutes", (req, res) => {
 
 app.post("/addRoutes", (req, res) => {
   const addedRoute = writeTheData("routes", req.body.routes);
-  res.send(req.body.routes);
+  res.send("Successful");
 });
 
 app.listen(PORT, () => {
@@ -38,46 +48,24 @@ app.listen(PORT, () => {
 
 /*----------------------UTILITY FUNCTIONS---------------------------*/
 
-function getTop50Records(collection) {
-  let gift = { msg: "", data: "", status: 0 };
-
-  const dbConnect = db.getDb();
-
-  dbConnect
-    .collection(collection)
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-      if (err) {
-        gift.status = 404;
-        gift.msg = "Error fetching listings!";
-        gift.data = err;
-      } else {
-        gift.data = result;
-        gift.msg = "Successfully fetched the data";
-        gift.status = 200;
-      }
-    });
-
-  return gift;
-}
-
 function writeTheData(collection, data) {
   let gift = { msg: "", data: "", status: 0 };
 
   const dbConnect = db.getDb();
+
+  data.last_modified = new Date();
 
   dbConnect.collection(collection).insertOne(data, function (err, result) {
     if (err) {
       gift.status = 404;
       gift.msg = "Error fetching listings!";
       gift.data = err;
+      return gift;
     } else {
       gift.data = result;
       gift.msg = "Successfully fetched the data";
       gift.status = 200;
+      return gift;
     }
   });
-
-  return gift;
 }
