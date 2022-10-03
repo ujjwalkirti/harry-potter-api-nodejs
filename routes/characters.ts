@@ -1,9 +1,6 @@
-const express = require("express");
-const db = require("../db/conn");
+import express from "express";
+import db from "../db/conn";
 const characterRouter = express.Router();
-
-
-
 
 //get all characters
 characterRouter.get("/all", function (req, res) {
@@ -23,8 +20,8 @@ characterRouter.get("/all", function (req, res) {
 });
 
 //get a specific character
-characterRouter.post("/", function(req,res){
-/*
+characterRouter.post("/", function (req, res) {
+  /*
     we require following params inorder to return the query
     {
         name string
@@ -33,7 +30,8 @@ characterRouter.post("/", function(req,res){
         muggle-born bool
     }
 */
-    
-})
+  console.log(req.body);
+  res.send("good query");
+});
 
 module.exports = characterRouter;

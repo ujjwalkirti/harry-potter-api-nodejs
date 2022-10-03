@@ -1,13 +1,13 @@
-const { MongoClient } = require("mongodb");
-const connectionString = process.env.ATLAS_URI;
+import { MongoClient } from "mongodb";
+const connectionString = process.env.DEV_ATLAS_URI;
 const client = new MongoClient(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-let dbConnection;
+let dbConnection: any;
 
-module.exports = {
+const db: Object = {
   connectToServer: function () {
     client.connect(function (err, db) {
       if (err || !db) {
@@ -24,3 +24,5 @@ module.exports = {
     return dbConnection;
   },
 };
+
+export default db;
