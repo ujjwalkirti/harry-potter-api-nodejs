@@ -1,28 +1,10 @@
-import { MongoClient } from "mongodb";
-const connectionString = process.env.DEV_ATLAS_URI;
-const client = new MongoClient(connectionString, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const mongoose = require("mongoose");
 
+function connectToDB() {
+  const connection = mongoose.connect("mongodb://localhost:27017/test");
+  connection
+    .then(console.log("connected to db successfully"))
+    .catch((reason) => console.log(reason));
+}
 
-
-const db= {
-  connectToServer: function () {
-    client.connect(function (err, db) {
-      if (err || !db) {
-        return console.log(err.errmsg);
-      }
-
-      dbConnection = db.db("cluster0");
-
-      return console.log("Successfully connected to MongoDB.");
-    });
-  },
-
-  getDb: function () {
-    return dbConnection;
-  },
-};
-
-export default db;
+module.exports = connectToDB;

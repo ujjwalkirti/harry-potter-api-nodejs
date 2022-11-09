@@ -1,22 +1,10 @@
-import express from "express";
-import db from "../db/conn";
+const express = require('express')
 const characterRouter = express.Router();
 
 //get all characters
 characterRouter.get("/all", function (req, res) {
-  const dbConnect = db.getDb();
-  dbConnect
-    .collection("characters")
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send("Error fetching listings!");
-      } else {
-        // console.log(result);
-        res.status(200).json(result);
-      }
-    });
+  res.render('home.ejs')
+  
 });
 
 //get a specific character

@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const db = require("./db/conn");
 const characterRouter = require("./routes/characters");
 const housesRouter = require("./routes/houses");
 const PORT = process.env.PORT || 6000;
+const connectToDB = require("./db/conn");
 
 app.use(express.urlencoded({ extended: true }));
 
 //connect to MongoDB cluster
-db.connectToServer();
+connectToDB();
 
 //defining the routes
 app.use("/characters", characterRouter);
@@ -17,19 +17,7 @@ app.use("/houses", housesRouter);
 
 //render the homepage
 app.get("/", (req, res) => {
-  const dbConnect = db.getDb();
-  dbConnect
-    .collection("routes")
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send("Error fetching listings!");
-      } else {
-        // console.log(result);
-        res.render("home.ejs", { result });
-      }
-    });
+  res.render("home.ejs");
 });
 
 //render the page to add routes

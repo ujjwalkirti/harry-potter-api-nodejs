@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 
 const houseRouter = express.Router();
-export default houseRouter;
+module.exports=houseRouter
