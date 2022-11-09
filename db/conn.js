@@ -5,9 +5,9 @@ const client = new MongoClient(connectionString, {
   useUnifiedTopology: true,
 });
 
-let dbConnection: any;
 
-const db: Object = {
+
+const db= {
   connectToServer: function () {
     client.connect(function (err, db) {
       if (err || !db) {
