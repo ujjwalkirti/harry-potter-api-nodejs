@@ -19,7 +19,7 @@ characterRouter.post("/", function (req, res) {
     }
 */
   console.log(req.body);
-  res.send("good query");
+  res.json(req.body)
 });
 
 module.exports = characterRouter;

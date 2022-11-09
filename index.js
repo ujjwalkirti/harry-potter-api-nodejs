@@ -22,7 +22,8 @@ app.get("/", (req, res) => {
 
 //render the page to add routes
 app.get("/addRoutes", (req, res) => {
-  res.render("addRoutes.ejs");
+  // res.render("addRoutes.ejs");
+  res.send('wait, bro changes are being made')
 });
 
 app.post("/addRoutes", (req, res) => {
@@ -33,6 +34,11 @@ app.post("/addRoutes", (req, res) => {
 app.listen(PORT, () => {
   console.log(`server has started on port ${PORT}`);
 });
+
+
+
+
+
 
 /*----------------------UTILITY FUNCTIONS---------------------------*/
 
