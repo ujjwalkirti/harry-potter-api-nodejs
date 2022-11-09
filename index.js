@@ -17,7 +17,7 @@ app.use("/houses", housesRouter);
 
 //render the homepage
 app.get("/", (req, res) => {
-  res.render("home.ejs");
+  res.send('hi')
 });
 
 //render the page to add routes

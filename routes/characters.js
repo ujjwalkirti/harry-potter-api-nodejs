@@ -3,7 +3,7 @@ const characterRouter = express.Router();
 
 //get all characters
 characterRouter.get("/all", function (req, res) {
-  res.render('home.ejs')
+  res.send('hi')
   
 });
 
